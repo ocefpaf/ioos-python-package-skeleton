@@ -45,10 +45,11 @@ script:
       pushd /tmp && pytest -n 2 -rxs --cov=ioos_pkg_skeleton tests && popd ;
     fi
 
-  - if [[ $TRAVIS_JOB_NAME == 'tarball' ]]; then
-      pip wheel . -w dist --no-deps ;
-      check-manifest --verbose ;
-      twine check dist/* ;
+  - |
+    if [[ $TRAVIS_JOB_NAME == 'tarball' ]]; then
+      pip wheel . -w dist --no-deps && \
+      check-manifest --verbose && \
+      twine check dist/*
     fi
 
   - if [[ $TRAVIS_JOB_NAME == 'coding_standards' ]]; then
